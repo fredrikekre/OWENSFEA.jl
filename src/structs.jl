@@ -457,9 +457,9 @@ mutable struct Mesh
     conn::Matrix{Int}
     type::Vector{Int}
     meshSeg::Vector{Int}
-    structuralSpanLocNorm::Vector{Float64}
-    structuralNodeNumbers::Vector{Int}
-    structuralElNumbers::Vector{Int}
+    structuralSpanLocNorm::Matrix{Float64} # One row per blade (TODO: More efficient with one per column?)
+    structuralNodeNumbers::Matrix{Int} # One row per blade
+    structuralElNumbers::Matrix{Int} # One row per blade
     nonRotating::Int
     hubNodeNum::Int
     hubPos::Vector{Float64}
@@ -490,8 +490,8 @@ mutable struct Ort
     Theta_d::Vector{Float64}
     Twist_d::Vector{Float64}
     Length::Vector{Float64}
-    elNum::Vector{Float64}
-    Offset::Matrix{Float64}
+    elNum::Union{Vector{Int}, Matrix{Int}} # XXX: Don't quite understand when this is a Vector vs Matrix
+    Offset::Matrix{Float64} # One length-3 column per coordinate (?)
 end
 
 """
